@@ -34,15 +34,24 @@ function findByName(name: string) {
 }
 
 
-// async function remove(id: number) {
-//   await prisma.recommendation.delete({
-//     where: { id },
-//   });
-// }
+function findById(id:number) {
+  return prisma.movies.findUnique({
+    where: { id },
+  });
+}
+
+
+async function deleteMovie(id: number) {
+  await prisma.movies.delete({
+    where: { id },
+  });
+}
 
 export const moviesRepository = {
   create,
   findByName,
   getAllMovies,
-  getByCategory
+  getByCategory,
+  deleteMovie,
+  findById
 };

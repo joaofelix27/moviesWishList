@@ -19,8 +19,15 @@ async function getByCategory(req: Request, res: Response) {
   res.status(200).send(movies);
 }
 
+async function deleteMovie(req: Request, res: Response) {
+  const { id }  = req.params;
+  const movies = await moviesService.deleteMovie(Number(id));
+  res.sendStatus(200)
+}
+
 export const moviesController = {
   insertMovie,
   getAllMovies,
-  getByCategory
+  getByCategory,
+  deleteMovie
 };

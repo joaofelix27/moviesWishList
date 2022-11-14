@@ -9,6 +9,6 @@ moviesRouter.post("/",validateSchema(moviesSchema), moviesController.insertMovie
 moviesRouter.get("/", moviesController.getAllMovies);
 moviesRouter.get("/categories/:category", moviesController.getByCategory);
 // moviesRouter.put("/",validateSchema(moviesSchema), moviesController.insertMovie);
-// moviesRouter.delete("/",validateSchema(moviesSchema), moviesController.insertMovie);
+moviesRouter.delete("/:id", moviesController.deleteMovie);
 
 export default moviesRouter;
