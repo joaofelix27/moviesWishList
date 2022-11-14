@@ -1,8 +1,11 @@
 import joi from "joi";
+import { CreateMoviesData } from "../services/moviesService.js";
 
-const youtubeLinkRegex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/;
 
-export const moviesSchema = joi.object({
+export const moviesSchema = joi.object<CreateMoviesData>({
   name: joi.string().required(),
-  youtubeLink: joi.string().required().pattern(youtubeLinkRegex),
+  plataform: joi.string().required(),
+  category: joi.string().required(),
+  status: joi.string().valid('Watched', 'toWatch').required(),
+  score:joi.number().min(1).max(10)
 });

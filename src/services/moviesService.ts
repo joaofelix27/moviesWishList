@@ -1,19 +1,19 @@
 import { Movies } from "@prisma/client";
-import { recommendationRepository } from "../repositories/moviesRepository.js";
+import { moviesRepository } from "../repositories/moviesRepository.js";
 import { conflictError, notFoundError } from "../utils/errorUtils.js";
 
-export type CreateRecommendationData = Omit<Movies, "id" | "score">;
+export type CreateMoviesData = Omit<Movies, "id">;
 
-async function insert(createRecommendationData: CreateRecommendationData) {
-  // const existingRecommendation = await recommendationRepository.findByName(
-  //   createRecommendationData.name
-  // );
-  // if (existingRecommendation)
-  //   throw conflictError("Recommendations names must be unique");
+async function insertMovie(moviesData: CreateMoviesData) {
+  const existingMovies = await moviesRepository.findByName(
+    moviesData.name
+  );
+  if (existingMovies)
+    throw conflictError("Movies names must be unique");
 
-  // await recommendationRepository.create(createRecommendationData);
+  await moviesRepository.create(moviesData);
 }
 
 export const moviesService = {
-  insert
+  insertMovie
 };

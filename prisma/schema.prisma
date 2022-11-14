@@ -14,9 +14,9 @@ model Movies {
   id        Int        @id @default(autoincrement())
   name      String     @unique
   plataform String
-  category  Int        
+  category  String        
   status    statusType
-  score     Int 
+  score     Int?        
 
   @@map("movies")
 }
