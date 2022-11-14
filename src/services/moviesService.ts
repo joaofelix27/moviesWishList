@@ -3,6 +3,7 @@ import { moviesRepository } from "../repositories/moviesRepository.js";
 import { conflictError, notFoundError } from "../utils/errorUtils.js";
 
 export type CreateMoviesData = Omit<Movies, "id">;
+export type UpdateMoviesData = Omit<Movies, "id" |"plataform" | "category" | "status">;
 
 async function insertMovie(moviesData: CreateMoviesData) {
   const existingMovies = await moviesRepository.findByName(
@@ -30,11 +31,21 @@ async function getByCategory(category:string) {
 
   return  await moviesRepository.deleteMovie(id);
  }
+
+ async function updateMovie(moviesData: UpdateMoviesData) {
+  const existingMovies = await moviesRepository.findByName(moviesData.name
+  );
+  if (!existingMovies)
+    throw notFoundError("Movie name does not exists");
+
+  return  await moviesRepository.updateMovie(moviesData);
+ }
  
 
 export const moviesService = {
   insertMovie,
   getAllMovies,
   getByCategory,
-  deleteMovie
+  deleteMovie,
+  updateMovie
 };

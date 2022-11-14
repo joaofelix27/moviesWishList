@@ -1,17 +1,12 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "../database.js";
-import { CreateMoviesData } from "../services/moviesService.js";
+import { CreateMoviesData, UpdateMoviesData } from "../services/moviesService.js";
 
 async function create(createRecommendationData: CreateMoviesData) {
   await prisma.movies.create({
     data: createRecommendationData,
   });
 }
-
-// interface FindAllWhere {
-//   score: number;
-//   scoreFilter: "lte" | "gt";
-// }
 
 function getAllMovies() {
 
@@ -47,11 +42,22 @@ async function deleteMovie(id: number) {
   });
 }
 
+async function updateMovie(movieData:UpdateMoviesData) {
+  await prisma.movies.update({
+    where: { name:movieData.name },
+    data:{
+      score:movieData.score,
+      status:"Watched"
+    }
+  });
+}
+
 export const moviesRepository = {
   create,
   findByName,
   getAllMovies,
   getByCategory,
   deleteMovie,
-  findById
+  findById,
+  updateMovie
 };
