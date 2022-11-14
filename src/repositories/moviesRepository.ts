@@ -13,40 +13,19 @@ async function create(createRecommendationData: CreateMoviesData) {
 //   scoreFilter: "lte" | "gt";
 // }
 
-// function findAll(findAllWhere?: FindAllWhere) {
-//   const filter = getFindAllFilter(findAllWhere);
+function getAllMovies() {
 
-//   return prisma.recommendation.findMany({
-//     where: filter,
-//     orderBy: { id: "desc" },
-//     take: 10
-//   });
-// }
+  return prisma.movies.findMany({
+    orderBy: { id: "asc" }
+  });
+}
 
-// function getAmountByScore(take: number) {
-//   return prisma.recommendation.findMany({
-//     orderBy: { score: "desc" },
-//     take,
-//   });
-// }
 
-// function getFindAllFilter(
-//   findAllWhere?: FindAllWhere
-// ): Prisma.RecommendationWhereInput {
-//   if (!findAllWhere) return {};
-
-//   const { score, scoreFilter } = findAllWhere;
-
-//   return {
-//     score: { [scoreFilter]: score },
-//   };
-// }
-
-// function find(id: number) {
-//   return prisma.recommendation.findUnique({
-//     where: { id },
-//   });
-// }
+function getByCategory(category: string) {
+  return prisma.movies.findMany({
+    where: { category },
+  });
+}
 
 function findByName(name: string) {
   return prisma.movies.findUnique({
@@ -54,14 +33,6 @@ function findByName(name: string) {
   });
 }
 
-// async function updateScore(id: number, operation: "increment" | "decrement") {
-//   return prisma.recommendation.update({
-//     where: { id },
-//     data: {
-//       score: { [operation]: 1 },
-//     },
-//   });
-// }
 
 // async function remove(id: number) {
 //   await prisma.recommendation.delete({
@@ -71,5 +42,7 @@ function findByName(name: string) {
 
 export const moviesRepository = {
   create,
-  findByName
+  findByName,
+  getAllMovies,
+  getByCategory
 };

@@ -14,6 +14,17 @@ async function insertMovie(moviesData: CreateMoviesData) {
   await moviesRepository.create(moviesData);
 }
 
+async function getAllMovies() {
+ return  await moviesRepository.getAllMovies();
+}
+
+async function getByCategory(category:string) {
+  return  await moviesRepository.getByCategory(category);
+ }
+ 
+
 export const moviesService = {
-  insertMovie
+  insertMovie,
+  getAllMovies,
+  getByCategory
 };
